@@ -41,6 +41,8 @@ public class PlayerMotor : MonoBehaviour
         {
             newForce.x += acceleration;
         }
+        frictionForce.y = 0;
+
 
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
