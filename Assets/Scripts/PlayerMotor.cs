@@ -4,22 +4,57 @@ using UnityEngine;
 
 public class PlayerMotor : MonoBehaviour
 {
-    public CharacterController controller;
-    public float speed = 5f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        controller = GetComponent<CharacterController>();
+    public Rigidbody rb;
+
+    private static Surface ice = new Surface(0.8f);
+    private static Surface ground = new Surface(10.0f);
+    private static Surface currentSurface = ground;
+
+    public float speed = 10.0f; 
+    public float maxSpeed = 5.0f;
+
+    void Awake(){
+        rb = GetComponent<Rigidbody>();
+
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        Vector3 newForce = Vector3.zero;
+        Vector3 frictionForce = -rb.velocity.normalized * currentSurface.friction;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            newForce.z += speed;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            newForce.z -= speed;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            newForce.x -= speed;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            newForce.x += speed;
+        }
+
+        rb.AddForce((newForce + frictionForce));
+
+        if (rb.velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
     }
 
-    public void ProcessMove(Vector2 input){
-        Vector3 moveDirection = new Vector3(input.x, 0, input.y);
-        controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);
+    [System.Serializable]
+    class Surface{
+        [SerializeField]
+        public float friction;
+        public Surface(float friction){
+            this.friction = friction;
+        }
     }
 }
