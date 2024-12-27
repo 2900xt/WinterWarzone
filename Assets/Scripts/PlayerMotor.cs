@@ -6,11 +6,12 @@ public class PlayerMotor : MonoBehaviour
 {
     public Rigidbody rb;
 
+    private bool grounded = false;
     private static Surface ice = new Surface(0.8f);
     private static Surface ground = new Surface(10.0f);
     private static Surface currentSurface = ground;
 
-    public float speed = 10.0f; 
+    public float acceleration = 10.0f; 
     public float maxSpeed = 5.0f;
 
     void Awake(){
@@ -26,19 +27,25 @@ public class PlayerMotor : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            newForce.z += speed;
+            newForce.z += acceleration;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            newForce.z -= speed;
+            newForce.z -= acceleration;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            newForce.x -= speed;
+            newForce.x -= acceleration;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            newForce.x += speed;
+            newForce.x += acceleration;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space) && grounded)
+        {
+            rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+            grounded = false;
         }
 
         rb.AddForce((newForce + frictionForce));
@@ -46,6 +53,19 @@ public class PlayerMotor : MonoBehaviour
         if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
+    }
+
+    void OnCollisionStay(Collision other)
+    {
+        grounded = true;
+        if (other.gameObject.tag == "Ice")
+        {
+            currentSurface = ice;
+        }
+        else
+        {
+            currentSurface = ground;
         }
     }
 
