@@ -1,0 +1,54 @@
+newmtl B:palette
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd B.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06
+newmtl glass:palette
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd glass.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06
+newmtl homelight:palette
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd homelight.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06
+newmtl light:palette
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd light.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06
+newmtl river:palette
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd river.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06
+newmtl yellow:palette
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd yellow.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06
