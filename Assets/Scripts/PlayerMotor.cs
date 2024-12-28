@@ -5,18 +5,18 @@ using UnityEngine;
 public class PlayerMotor : MonoBehaviour
 {
     public Rigidbody rb;
-
+    public Transform cameraParent;
     public bool grounded = false, jumpCooldown = true;
     public float friction = 0.1f;
     public float acceleration = 10.0f, frictionEpsilon = 0.1f; 
-    public float maxSpeed = 5.0f, jumpForce = 5.0f;
+    public float maxSpeed = 5.0f, jumpForce = 10.0f, dashForce = 10.0f;
+    public float dashCooldownTime = 5f, curDashCooldownTime = 0f, dashDuration = 0.2f;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    
     void FixedUpdate()
     {
         Vector3 newForce = Vector3.zero;
@@ -29,18 +29,20 @@ public class PlayerMotor : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             newForce += transform.forward * acceleration;
+            //slightly rotate towards forward
+            //cameraParent.localEulerAngles /= 1.5f;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            newForce -= transform.forward * acceleration;
+            newForce -= transform.forward * acceleration * 0.5f;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            newForce -= acceleration * transform.right;
+            newForce -= acceleration * transform.right * 0.5f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            newForce += acceleration * transform.right;
+            newForce += acceleration * transform.right * 0.5f;
         }
 
         frictionForce.y = 0;
@@ -53,10 +55,18 @@ public class PlayerMotor : MonoBehaviour
             SoundManager.PlaySound(SoundType.JUMP, 0.5f);
         }
 
+        curDashCooldownTime = Mathf.Max(0f, curDashCooldownTime - Time.deltaTime);
+        if(Input.GetKey(KeyCode.E) && curDashCooldownTime <= 0)
+        {
+            rb.velocity = new Vector3(rb.velocity.x*dashForce, rb.velocity.y, rb.velocity.z*dashForce);
+            curDashCooldownTime = dashCooldownTime;
+        }
+
         rb.AddForce(newForce + frictionForce);
 
+        bool dashing = curDashCooldownTime > dashCooldownTime - dashDuration;
         float xyMag = new Vector2(rb.velocity.x, rb.velocity.z).magnitude;
-        if (xyMag > maxSpeed)
+        if (xyMag > maxSpeed && !dashing)
         {
             rb.velocity = new Vector3(
                 rb.velocity.x/xyMag * maxSpeed, 
