@@ -29,9 +29,20 @@ namespace HelloWorld
 
         void StartButtons()
         {
-            if (GUILayout.Button("Host")) m_NetworkManager.StartHost();
-            if (GUILayout.Button("Client")) m_NetworkManager.StartClient();
-            if (GUILayout.Button("Server")) m_NetworkManager.StartServer();
+            if (GUILayout.Button("Host"))
+            {
+                m_NetworkManager.StartHost();
+            }
+            
+            if (GUILayout.Button("Client")) 
+            {
+                m_NetworkManager.StartClient();
+            }
+            
+            if (GUILayout.Button("Server")) 
+            {
+                m_NetworkManager.StartServer();
+            }
         }
 
         void StatusLabels()

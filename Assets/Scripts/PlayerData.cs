@@ -14,15 +14,23 @@ public class PlayerData : NetworkBehaviour
         set => health = value;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        
+        health = 100f;
     }
-    
-    // Update is called once per frame
-    void Update()
+
+    public void OnCollisionEnter(Collision collision)
     {
-        
+        if(IsServer)
+        {
+            if(collision.gameObject.CompareTag("Bullet"))
+            {
+                health -= 10f;
+                if(health <= 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
     }
 }

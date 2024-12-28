@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Slider dashSlider;
+    public Slider dashSlider, healthSlider;
     public Image dashFillImage;
     public Color dashSliderColor;
     public PlayerMotor playerMotor;
+    public PlayerData playerData;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,11 +31,14 @@ public class UIManager : MonoBehaviour
             {
                 dashFillImage.color = dashSliderColor;
             }
+
+            healthSlider.value = playerData.Health / 100f;
         }
         else 
         {
             //try to find player
             NetworkManager.Singleton.LocalClient?.PlayerObject?.TryGetComponent(out playerMotor);
+            NetworkManager.Singleton.LocalClient?.PlayerObject?.TryGetComponent(out playerData);
         }
     }
 }
