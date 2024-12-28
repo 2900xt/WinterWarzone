@@ -18,14 +18,17 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dashSlider.value = 1 - playerMotor.curDashCooldownTime / playerMotor.dashCooldownTime;
-        if(playerMotor.curDashCooldownTime <= 0)
+        if(playerMotor != null)
         {
-            dashFillImage.color = Color.green;
+            dashSlider.value = 1 - playerMotor.curDashCooldownTime / playerMotor.dashCooldownTime;
+            if(playerMotor.curDashCooldownTime <= 0)
+            {
+                dashFillImage.color = Color.green;
+            }
+            else
+            {
+                dashFillImage.color = dashSliderColor;
+            }
         }
-        else
-        {
-            dashFillImage.color = dashSliderColor;
-        } 
     }
 }
