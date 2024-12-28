@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class SnowballLauncher : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public GameObject snowballPrefab;
+    public float launchStrength;
+
+    void Update(){
+        if(Input.GetKeyDown("Fire11")){
+            ShootSnowball();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void ShootSnowball(){
+        GameObject snowball = Instantiate(snowballPrefab, transform.position, transform.rotation);
+        snowball.GetComponent<Rigidbody>().AddForce(transform.forward * launchStrength, ForceMode.Impulse);
     }
 }
