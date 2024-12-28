@@ -28,19 +28,19 @@ public class PlayerMotor : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            newForce.z += acceleration;
+            newForce += transform.forward * acceleration;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            newForce.z -= acceleration;
+            newForce -= transform.forward * acceleration;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            newForce.x -= acceleration;
+            newForce -= acceleration * transform.right;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            newForce.x += acceleration;
+            newForce += acceleration * transform.right;
         }
 
         frictionForce.y = 0;
