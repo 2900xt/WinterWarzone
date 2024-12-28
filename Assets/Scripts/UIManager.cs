@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +30,11 @@ public class UIManager : MonoBehaviour
             {
                 dashFillImage.color = dashSliderColor;
             }
+        }
+        else 
+        {
+            //try to find player
+            NetworkManager.Singleton.LocalClient?.PlayerObject?.TryGetComponent(out playerMotor);
         }
     }
 }

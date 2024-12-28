@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerMotor : MonoBehaviour
+public class PlayerMotor : NetworkBehaviour
 {
     public Rigidbody rb;
     public Transform cameraParent;
@@ -19,6 +20,8 @@ public class PlayerMotor : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!IsOwner) return;
+        
         Vector3 newForce = Vector3.zero;
         Vector3 frictionForce = -rb.velocity.normalized * friction;
         if(frictionForce.magnitude < frictionEpsilon)
@@ -80,7 +83,7 @@ public class PlayerMotor : MonoBehaviour
         jumpCooldown = true;
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnCollisionStay(Collision other)
     {
         if(other.gameObject.layer == 6) grounded = true;
     }

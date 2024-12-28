@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class FirstPersonCamera : MonoBehaviour
+public class FirstPersonCamera : NetworkBehaviour
 {
     public Transform player;
     public float mouseSensitivity = 2f, cameraVerticalRotation = 0f;
@@ -16,6 +17,8 @@ public class FirstPersonCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!IsOwner) return;
+        
         float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
         cameraVerticalRotation -= inputY;
