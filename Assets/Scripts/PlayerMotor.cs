@@ -6,24 +6,25 @@ public class PlayerMotor : MonoBehaviour
 {
     public Rigidbody rb;
 
-    private bool grounded = false;
-    private static Surface ice = new Surface(0.8f);
-    private static Surface ground = new Surface(10.0f);
-    private static Surface currentSurface = ground;
+    public bool grounded = false, jumpCooldown = true;
+    public float friction = 0.1f;
+    public float acceleration = 10.0f, frictionEpsilon = 0.1f; 
+    public float maxSpeed = 5.0f, jumpForce = 5.0f;
 
-    public float acceleration = 10.0f; 
-    public float maxSpeed = 5.0f;
-
-    void Awake(){
+    void Awake()
+    {
         rb = GetComponent<Rigidbody>();
-
     }
 
     
-    void Update()
+    void FixedUpdate()
     {
         Vector3 newForce = Vector3.zero;
-        Vector3 frictionForce = -rb.velocity.normalized * currentSurface.friction;
+        Vector3 frictionForce = -rb.velocity.normalized * friction;
+        if(frictionForce.magnitude < frictionEpsilon)
+        {
+            frictionForce = Vector3.zero;
+        }
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -41,42 +42,40 @@ public class PlayerMotor : MonoBehaviour
         {
             newForce.x += acceleration;
         }
+
         frictionForce.y = 0;
 
-
-        if(Input.GetKeyDown(KeyCode.Space) && grounded)
+        if(Input.GetKey(KeyCode.Space) && grounded && jumpCooldown)
         {
-            rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
-            grounded = false;
+            rb.velocity += Vector3.up * jumpForce;
+            Invoke(nameof(ResetJump), 0.75f);
+            jumpCooldown = false;
         }
 
-        rb.AddForce((newForce + frictionForce));
+        rb.AddForce(newForce + frictionForce);
 
-        if (rb.velocity.magnitude > maxSpeed)
+        float xyMag = new Vector2(rb.velocity.x, rb.velocity.z).magnitude;
+        if (xyMag > maxSpeed)
         {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
+            rb.velocity = new Vector3(
+                rb.velocity.x/xyMag * maxSpeed, 
+                rb.velocity.y, 
+                rb.velocity.z/xyMag * maxSpeed);
         }
     }
 
-    void OnCollisionStay(Collision other)
+    void ResetJump()
     {
-        grounded = true;
-        if (other.gameObject.tag == "Ice")
-        {
-            currentSurface = ice;
-        }
-        else
-        {
-            currentSurface = ground;
-        }
+        jumpCooldown = true;
     }
 
-    [System.Serializable]
-    class Surface{
-        [SerializeField]
-        public float friction;
-        public Surface(float friction){
-            this.friction = friction;
-        }
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.layer == 6) grounded = true;
+    }
+    
+    void OnCollisionExit(Collision other)
+    {
+        if(other.gameObject.layer == 6) grounded = false;
     }
 }
