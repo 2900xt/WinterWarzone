@@ -800,6 +800,7 @@ GameObject:
   - component: {fileID: 1671170147}
   - component: {fileID: 1671170146}
   - component: {fileID: 1671170145}
+  - component: {fileID: 1671170148}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -917,6 +918,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1671170145}
   soundLists:
+  - name: BACKGROUND_MUSIC
+    clips:
+    - {fileID: 8300000, guid: 228959a5b6755044f93f4547d72a7ce3, type: 3}
   - name: JUMP
     clips:
     - {fileID: 8300000, guid: 13f485a9ad99a8a4a9fb2cee4768b2c4, type: 3}
@@ -945,6 +949,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1671170148
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671170144}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 75219836727d0fa4cab91375116f0bdb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1742457248
 PrefabInstance:
   m_ObjectHideFlags: 0
