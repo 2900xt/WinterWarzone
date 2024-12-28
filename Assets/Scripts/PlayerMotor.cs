@@ -50,6 +50,7 @@ public class PlayerMotor : MonoBehaviour
             rb.velocity += Vector3.up * jumpForce;
             Invoke(nameof(ResetJump), 0.75f);
             jumpCooldown = false;
+            SoundManager.PlaySound(SoundType.JUMP, 0.5f);
         }
 
         rb.AddForce(newForce + frictionForce);
