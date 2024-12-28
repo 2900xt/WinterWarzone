@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnowballLauncher : MonoBehaviour
+public class CandyCaneGun : MonoBehaviour
 {   
     public Camera fpsCam;
     public float damage = 10f;
     public float range = 100f;
-    public int snowballCount = 10;
+    public int candyCaneCount = 10;
     public bool aiming = false;
 
     public GameObject shootEffect;
@@ -22,11 +22,11 @@ public class SnowballLauncher : MonoBehaviour
     }
 
     void Shoot(){
-        if(snowballCount <= 0){
-            Debug.Log("No Snowballs");
+        if(candyCaneCount <= 0){
+            Debug.Log("No Candy Canes");
             return;
         }
-        snowballCount -= 1;
+        candyCaneCount -= 1;
 
         Vector3 start = aiming? fpsCam.transform.position : transform.position;
         Vector3 direction = aiming? fpsCam.transform.forward : transform.forward;
@@ -41,7 +41,7 @@ public class SnowballLauncher : MonoBehaviour
             }
 
             GameObject impact = Instantiate(shootEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            //Destroy(impact, 2f);
+            Destroy(impact, 2f);
         }
     }
 }
