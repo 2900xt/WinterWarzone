@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1172010974121590384}
   - component: {fileID: 1728071893746211496}
   - component: {fileID: 4888489403120222914}
+  - component: {fileID: 647082504693700936}
   m_Layer: 0
   m_Name: SnowballLauncher
   m_TagString: Untagged
@@ -105,6 +106,26 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &647082504693700936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226110714766178138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba936580f28712d4ea5e2f46b2e11b59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fpsCam: {fileID: 7318997425173143006}
+  ammo: 100
+  damage: 10
+  range: 100
+  fireRate: 10
+  timeSinceShot: 0
+  snowballPrefab: {fileID: 1149982569492287048, guid: f0ad2919466994b4aa5acd7ddf3444b6, type: 3}
+  launchStrength: 26
 --- !u!1 &1332714165483347048
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 1529447792
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  InScenePlacedSourceGlobalObjectIdHash: 2700248209
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0

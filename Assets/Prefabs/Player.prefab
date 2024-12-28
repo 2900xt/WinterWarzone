@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 4013806772690127420}
   - component: {fileID: 3219741503538913576}
   - component: {fileID: 4480054336183726818}
+  - component: {fileID: -6142865595733451948}
   - component: {fileID: 3670537537448228528}
   - component: {fileID: 3511514514137781325}
   m_Layer: 0
@@ -220,6 +221,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &-6142865595733451948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332714165483347048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1240742610
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &3670537537448228528
 MonoBehaviour:
   m_ObjectHideFlags: 0
