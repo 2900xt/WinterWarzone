@@ -6,16 +6,16 @@ public class PlaySoundOnEnter : StateMachineBehaviour
     public SoundType soundType;
     [Range(0f, 1f)] public float volume = 1f;
 
-    private bool soundFinished;
+    //private bool soundFinished;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        soundFinished = false;
+        //soundFinished = false;
 
         // Start the coroutine to wait for the sound to finish
         SoundManager.PlaySound(soundType, volume, () =>
         {
-            soundFinished = true;
+            //soundFinished = true;
             animator.SetBool("SoundFinished", true);
         });
 
