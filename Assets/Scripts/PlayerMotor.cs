@@ -13,14 +13,14 @@ public class PlayerMotor : NetworkBehaviour
     public float maxSpeed = 5.0f, jumpForce = 10.0f, dashForce = 10.0f;
     public float dashCooldownTime = 5f, curDashCooldownTime = 0f, dashDuration = 0.2f;
 
-    void Awake()
+    public override void OnNetworkSpawn()
     {
         rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
-        if(!IsOwner) return;
+        if(!IsLocalPlayer) return;
         
         Vector3 newForce = Vector3.zero;
         Vector3 frictionForce = -rb.velocity.normalized * friction;
