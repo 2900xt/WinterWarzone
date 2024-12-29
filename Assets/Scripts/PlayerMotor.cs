@@ -6,8 +6,8 @@ using UnityEngine;
 public class PlayerMotor : NetworkBehaviour
 {
     public Rigidbody rb;
-    public Transform cameraParent;
-    public bool grounded = false, jumpCooldown = true;
+    public Transform glider;
+    public bool grounded = false, jumpCooldown = true, gliding = true;
     public float friction = 0.1f;
     public float acceleration = 10.0f, frictionEpsilon = 0.1f; 
     public float maxSpeed = 5.0f, jumpForce = 10.0f, dashForce = 10.0f;
@@ -16,6 +16,12 @@ public class PlayerMotor : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         rb = GetComponent<Rigidbody>();
+
+        float rad = 60f, theta = Random.Range(0f, 360f);
+        Vector3 pos = new Vector3(rad * Mathf.Cos(theta), 150f, rad * Mathf.Sin(theta));
+        transform.position = pos;
+
+        gliding = true;
     }
 
     void FixedUpdate()
@@ -76,6 +82,11 @@ public class PlayerMotor : NetworkBehaviour
                 rb.velocity.y, 
                 rb.velocity.z/xyMag * maxSpeed);
         }
+
+        if(gliding)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, Mathf.Max(-8f, rb.velocity.y), rb.velocity.z);
+        }
     }
 
     void ResetJump()
@@ -85,7 +96,15 @@ public class PlayerMotor : NetworkBehaviour
 
     void OnCollisionStay(Collision other)
     {
-        if(other.gameObject.layer == 6) grounded = true;
+        if(other.gameObject.layer == 6) 
+        {
+            if(gliding)
+            {
+                gliding = false;
+                glider.gameObject.SetActive(false);
+            }
+            grounded = true;
+        }
     }
     
     void OnCollisionExit(Collision other)
