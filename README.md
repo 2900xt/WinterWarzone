@@ -4,6 +4,7 @@ One player starts the game server by hosting it, and other players (theoreticall
 RPCs (remote procedure calls). The players' physics, snowballs, and gliders are synced across the network in real-time.
 
 # How to play
+### [YT Demo Video](https://youtu.be/b6pW_X8NP84)
 The game occurs in a remote holiday village, where you spawn in a random radius from the center. When you spawn in, you are around 100m above the map, and you have a "glider" equipped, 
 which you can use to move freely through the scene and find a safe landing spot. By left-clicking you can shoot a snowball, which does damage to other players, and players die when their health reaches 0, which updates the games' score on the HUD.
 There is also an additional feature of dashing which you can activate by pressing E, dashing briefly in the direction of your velocity. The movement is modeled after CS:GO, and the dash feels like a Valorant Jett dash, making the movement 
