@@ -10,9 +10,15 @@ public class SnowballLauncher : Weapon
 
     public override void Shoot()
     {
-        GameObject snowball = Instantiate(snowballPrefab, fpsCam.transform.position, fpsCam.transform.rotation);
-        snowball.GetComponent<NetworkObject>().Spawn();
-        snowball.GetComponent<Rigidbody>().AddForce(fpsCam.transform.forward * launchStrength, ForceMode.Impulse);
-        Debug.Log("Snowball launched by: " + OwnerClientId);
+        ShootServerRpc(fpsCam.transform.position, fpsCam.transform.forward);
+    }
+
+    [Rpc(SendTo.Server)]
+    public void ShootServerRpc(Vector3 position, Vector3 forward, RpcParams rpcParams = default)
+    {
+        GameObject snowball = Instantiate(snowballPrefab, position, Quaternion.identity);
+        snowball.GetComponent<NetworkObject>().SpawnWithOwnership(rpcParams.Receive.SenderClientId);
+        Vector3 launchForce = forward * launchStrength;
+        snowball.GetComponent<Rigidbody>().AddForce(launchForce, ForceMode.Impulse);
     }
 }

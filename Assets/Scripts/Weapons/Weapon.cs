@@ -22,10 +22,11 @@ public class Weapon : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!IsOwner) return;
+        if(!IsLocalPlayer) return;
         
         timeSinceShot += Time.deltaTime;
-        if(Input.GetButtonDown("Fire1")){
+        if(Input.GetButtonDown("Fire1"))
+        {
             TryToShoot();
         }
     }

@@ -5,9 +5,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private NetworkManager m_NetworkManager;
+    public static GameManager Instance;
     void Awake()
     {
         m_NetworkManager = GetComponent<NetworkManager>();
+        Instance = this;
     }
     void OnGUI()
     {
@@ -48,25 +50,5 @@ public class GameManager : MonoBehaviour
         GUILayout.Label("Mode: " + mode);
     }
     
-    public NetworkVariable<int> score1 = new NetworkVariable<int>(0), score2 = new NetworkVariable<int>(0);
-    [ServerRpc]
-    public void PlayerDiedServerRpc(ServerRpcParams rpcParams = default)
-    {
-        int id = (int)rpcParams.Receive.SenderClientId;
-        Debug.Log("Player " + id + " died");
-        NetworkObject player = m_NetworkManager.ConnectedClientsList[id].PlayerObject;
-
-        if(id == 0)
-        {
-            score2.Value++;
-        }
-        else 
-        {
-            score1.Value++;
-        }
-
-        //respawn player
-        player.transform.position = new Vector3(0, 0, 0);
-        player.GetComponent<PlayerData>().health.Value = 100f;
-    }   
+    public int score1 = 0, score2 = 0;
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -7,30 +8,78 @@ public class PlayerData : NetworkBehaviour
 {
     [SerializeField]
     [Range(0f, 100f)]
-    public NetworkVariable<float> health;
+    public float health;
    
     public override void OnNetworkSpawn()
     {
-        if(IsOwner) 
+        health = 100f;
+    }
+
+    private void HandleHealthChanged(float oldHealth, float newHealth)
+    {
+        Debug.Log($"Health changed from {oldHealth} to {newHealth}");
+    }
+
+
+    [Rpc(SendTo.ClientsAndHost)]
+    public void RespawnRpc(RpcParams rpcParams = default)
+    {
+        Debug.Log("Respawning player " + OwnerClientId);
+        transform.position = new Vector3(0, 0, 0);
+        health = 100f;
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    public void TakeDamageRpc(RpcParams rpcParams = default)
+    {
+        health -= 10;
+    }
+
+    public void OnCollisionEnter(Collision col)
+    {
+        if(!IsServer)
         {
-            health = new NetworkVariable<float>(100f);
-            health.SetDirty(true);
+            return;
+        }
+
+        if(col.gameObject.CompareTag("Snowball"))
+        {
+            ulong objOwner = col.gameObject.GetComponent<NetworkObject>().OwnerClientId;
+            if(objOwner != OwnerClientId)
+            {
+                Debug.Log("Snowball hit player" + OwnerClientId);
+                TakeDamageRpc();
+                if(health <= 0)
+                {
+                    Debug.Log("Player " + OwnerClientId + " died");
+                    if(OwnerClientId == 0)
+                    {
+                        IncreaseScore2Rpc();
+                    }
+                    else 
+                    {
+                        IncreaseScore1Rpc();
+                    }
+
+                    //respawn player
+                    RespawnRpc();
+                }
+                
+                col.gameObject.GetComponent<NetworkObject>().Despawn();
+            }
         }
     }
 
-    public void TakeDamage(float damage)
+    
+    [Rpc(SendTo.ClientsAndHost)]
+    public void IncreaseScore1Rpc(RpcParams rpcParams = default)
     {
-        if(IsServer)
-        {
-            Debug.Log("Took Damage: " + damage);
-            Debug.Log("Health: " + health.Value);
-            health.Value -= damage;
-            if(health.Value <= 0)
-            {
-                health.Value = 0;
-                NetworkManager.Singleton.GetComponent<GameManager>().PlayerDiedServerRpc();
-            }
-            health.SetDirty(true);
-        }
+        GameManager.Instance.score1++;
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    public void IncreaseScore2Rpc(RpcParams rpcParams = default)
+    {
+        GameManager.Instance.score2++;
     }
 }

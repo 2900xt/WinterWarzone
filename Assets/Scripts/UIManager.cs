@@ -35,7 +35,8 @@ public class UIManager : MonoBehaviour
                 dashFillImage.color = dashSliderColor;
             }
 
-            healthSlider.value = playerData.health.Value / 100f;
+            healthSlider.value = playerData.health / 100f;
+            //Debug.Log("Health: " + playerData.health.Value + ", ID: " + NetworkManager.Singleton.LocalClientId);
         }
         else 
         {
@@ -49,7 +50,7 @@ public class UIManager : MonoBehaviour
             gameManager = NetworkManager.Singleton.GetComponent<GameManager>();
         }
 
-        score0Text.text = gameManager.score1.Value.ToString();
-        score1Text.text = gameManager.score2.Value.ToString();
+        score0Text.text = GameManager.Instance.score1.ToString();
+        score1Text.text = GameManager.Instance.score2.ToString();
     }
 }

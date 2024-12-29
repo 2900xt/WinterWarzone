@@ -7,23 +7,12 @@ public class SnowballScript : NetworkBehaviour
 {
     public override void OnNetworkSpawn()
     {
-        if(IsOwner) Invoke(nameof(Despawn), 8f);
-    }
-    public void OnTriggerEnter(Collider col)
-    {
-        if(IsOwner && col.gameObject.CompareTag("Player"))
+        if(IsServer) 
         {
-            ulong objOwner = col.gameObject.GetComponent<NetworkObject>().OwnerClientId;
-            if(objOwner != OwnerClientId)
-            {
-                Debug.Log("Snowball hit player" + objOwner);
-                PlayerData playerData = col.gameObject.GetComponent<PlayerData>();
-                playerData.TakeDamage(10);
-                Despawn();
-            }
+            Invoke(nameof(Despawn), 8f);
         }
     }
-
+    
     public void Despawn()
     {
         GetComponent<NetworkObject>().Despawn();
