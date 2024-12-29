@@ -8,6 +8,6 @@ public class PlaySoundOnExit : StateMachineBehaviour
     [Range(0f, 1f)] public float volume = 1f;
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        SoundManager.PlaySound(soundType, volume);
+        SoundManager.PlaySoundRpc(soundType, volume);
     }
 }

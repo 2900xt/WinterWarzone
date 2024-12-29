@@ -32,5 +32,7 @@ public class SnowballLauncher : Weapon
         {
             rb.AddForce(force, ForceMode.Impulse);
         }
+        
+        SoundManager.PlaySoundRpc(SoundType.THROW_SNOWBALL, 0.4f);
     }
 }

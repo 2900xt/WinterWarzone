@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
             m_NetworkManager.StartServer();
         }
     }
+    string localIP = null;
     void StatusLabels()
     {
         var mode = m_NetworkManager.IsHost ?
@@ -66,7 +67,12 @@ public class GameManager : MonoBehaviour
             m_NetworkManager.NetworkConfig.NetworkTransport.GetType().Name);
         GUILayout.Label("Mode: " + mode);
         
-        GUILayout.Label("Local IP: " + GetLocalIPAddress());
+        if(localIP == null)
+        {
+            localIP = GetLocalIPAddress();
+        }
+        
+        GUILayout.Label("Local IP: " + localIP);
     }
 
     public string GetLocalIPAddress()

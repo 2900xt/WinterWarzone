@@ -13,7 +13,7 @@ public class PlaySoundOnEnter : StateMachineBehaviour
         //soundFinished = false;
 
         // Start the coroutine to wait for the sound to finish
-        SoundManager.PlaySound(soundType, volume, () =>
+        SoundManager.PlaySoundRpc(soundType, volume, () =>
         {
             //soundFinished = true;
             animator.SetBool("SoundFinished", true);

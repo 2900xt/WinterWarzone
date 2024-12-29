@@ -33,6 +33,7 @@ public class PlayerData : NetworkBehaviour
     public void TakeDamageRpc(RpcParams rpcParams = default)
     {
         health -= 10;
+        SoundManager.PlaySoundRpc(SoundType.HIT_SNOWBALL, 1f);
     }
 
     

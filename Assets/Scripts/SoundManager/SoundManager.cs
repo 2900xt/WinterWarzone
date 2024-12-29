@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]
@@ -16,7 +17,8 @@ public class SoundManager : MonoBehaviour
 
     public SoundList[] soundLists;
 
-    public static void PlaySound(SoundType soundType, float volume, Action onComplete = null)
+    [Rpc(SendTo.Everyone)]
+    public static void PlaySoundRpc(SoundType soundType, float volume, Action onComplete = null)
     {
         SoundList list = Instance.soundLists[(int)soundType];
         list.PlayRandomSound(volume, onComplete);

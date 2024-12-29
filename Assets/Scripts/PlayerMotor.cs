@@ -24,6 +24,8 @@ public class PlayerMotor : NetworkBehaviour
         gliding = true;
     }
 
+    float sfxcooldown = 0.5f;
+
     void FixedUpdate()
     {
         glider.gameObject.SetActive(gliding);
@@ -62,7 +64,7 @@ public class PlayerMotor : NetworkBehaviour
             rb.velocity += Vector3.up * jumpForce;
             Invoke(nameof(ResetJump), 0.75f);
             jumpCooldown = false;
-            SoundManager.PlaySound(SoundType.JUMP, 0.5f);
+            SoundManager.PlaySoundRpc(SoundType.JUMP, 0.2f);
         }
 
         curDashCooldownTime = Mathf.Max(0f, curDashCooldownTime - Time.deltaTime);
@@ -70,6 +72,7 @@ public class PlayerMotor : NetworkBehaviour
         {
             rb.velocity = new Vector3(rb.velocity.x*dashForce, rb.velocity.y, rb.velocity.z*dashForce);
             curDashCooldownTime = dashCooldownTime;
+            SoundManager.PlaySoundRpc(SoundType.JUMP, 0.2f);
         }
 
         rb.AddForce(newForce + frictionForce);
@@ -82,6 +85,15 @@ public class PlayerMotor : NetworkBehaviour
                 rb.velocity.x/xyMag * maxSpeed, 
                 rb.velocity.y, 
                 rb.velocity.z/xyMag * maxSpeed);
+        }
+
+        if(rb.velocity.magnitude > 3.0 && grounded)
+        {
+            sfxcooldown -= Time.deltaTime;
+            if(sfxcooldown < 0) {
+                SoundManager.PlaySoundRpc(SoundType.FOOTSTEP, 0.2f);
+                sfxcooldown = 0.5f;
+            }
         }
 
         if(gliding)
@@ -111,6 +123,14 @@ public class PlayerMotor : NetworkBehaviour
             }
 
             grounded = true;
+        }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if(IsLocalPlayer)
+        {
+            SoundManager.PlaySoundRpc(SoundType.LAND, 0.2f);
         }
     }
     
