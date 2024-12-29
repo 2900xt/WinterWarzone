@@ -1,4 +1,7 @@
+using System.Net;
+using System.Net.Sockets;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 
 
@@ -19,6 +22,8 @@ public class GameManager : MonoBehaviour
         }
         else if(mode == "Client")
         {
+            string ip = PlayerPrefs.GetString("IP");
+            m_NetworkManager.GetComponent<UnityTransport>().ConnectionData.Address = ip;
             m_NetworkManager.StartClient();
         }
     }
@@ -60,6 +65,24 @@ public class GameManager : MonoBehaviour
         GUILayout.Label("Transport: " +
             m_NetworkManager.NetworkConfig.NetworkTransport.GetType().Name);
         GUILayout.Label("Mode: " + mode);
+        
+        GUILayout.Label("Local IP: " + GetLocalIPAddress());
+    }
+
+    public string GetLocalIPAddress()
+    {
+        string ipAddress = "0.0.0.0";
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                ipAddress = ip.ToString();
+                Debug.Log("local ip: " + ip);
+                return ip.ToString();
+            }
+        }
+        return ipAddress;
     }
     
     public int score1 = 0, score2 = 0;
