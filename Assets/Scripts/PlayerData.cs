@@ -35,39 +35,33 @@ public class PlayerData : NetworkBehaviour
         health -= 10;
     }
 
-    public void OnCollisionEnter(Collision col)
+    
+
+    [Rpc(SendTo.Server)]
+    public void CollisionHandleServerRpc(ulong OwnerClientId, ulong collisionID, RpcParams rpcParams = default)
     {
-        if(!IsServer)
-        {
-            return;
-        }
+        Debug.Log("Snowball hit player" + OwnerClientId);
+        TakeDamageRpc();
+        
+        var networkObject = NetworkManager.Singleton.SpawnManager.SpawnedObjects[collisionID];
 
-        if(col.gameObject.CompareTag("Snowball"))
+        if(health <= 0)
         {
-            ulong objOwner = col.gameObject.GetComponent<NetworkObject>().OwnerClientId;
-            if(objOwner != OwnerClientId)
+            Debug.Log("Player " + OwnerClientId + " died");
+            if(OwnerClientId == 0)
             {
-                Debug.Log("Snowball hit player" + OwnerClientId);
-                TakeDamageRpc();
-                if(health <= 0)
-                {
-                    Debug.Log("Player " + OwnerClientId + " died");
-                    if(OwnerClientId == 0)
-                    {
-                        IncreaseScore2Rpc();
-                    }
-                    else 
-                    {
-                        IncreaseScore1Rpc();
-                    }
-
-                    //respawn player
-                    RespawnRpc();
-                }
-                
-                Destroy(col.gameObject);
+                IncreaseScore2Rpc();
             }
+            else 
+            {
+                IncreaseScore1Rpc();
+            }
+            
+            //respawn player
+            RespawnRpc();
         }
+        
+        networkObject.Despawn(true);
     }
 
     

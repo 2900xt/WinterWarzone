@@ -17,4 +17,16 @@ public class SnowballScript : NetworkBehaviour
     {
         GetComponent<NetworkObject>().Despawn();
     }
+
+    public void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.CompareTag("Player"))
+        {
+            ulong objOwner = col.GetComponent<NetworkObject>().OwnerClientId;
+            if(objOwner != OwnerClientId)
+            {
+                col.GetComponent<PlayerData>().CollisionHandleServerRpc(OwnerClientId, GetComponent<NetworkObject>().NetworkObjectId);
+            }
+        }
+    }
 }
