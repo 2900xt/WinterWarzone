@@ -7,29 +7,26 @@ public class PlayerData : NetworkBehaviour
 {
     [SerializeField]
     [Range(0f, 100f)]
-    private float health;
-
-    public float Health{
-        get => health;
-        set => health = value;
-    }
-
+    public NetworkVariable<float> health;
+   
     public override void OnNetworkSpawn()
     {
-        health = 100f;
+        if(IsOwner) 
+        {
+            health = new NetworkVariable<float>(100f);
+        }
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void TakeDamage(float damage)
     {
-        if(IsServer)
+        if(IsOwner)
         {
-            if(collision.gameObject.CompareTag("Bullet"))
+            Debug.Log("Took Damage");
+            health.Value -= damage;
+            if(health.Value <= 0)
             {
-                health -= 10f;
-                if(health <= 0)
-                {
-                    Destroy(gameObject);
-                }
+                health.Value = 0;
+                NetworkManager.Singleton.GetComponent<GameManager>().PlayerDiedServerRpc();
             }
         }
     }

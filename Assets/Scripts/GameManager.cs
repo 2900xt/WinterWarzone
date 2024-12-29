@@ -1,58 +1,72 @@
 using Unity.Netcode;
 using UnityEngine;
 
-namespace HelloWorld
+
+public class GameManager : MonoBehaviour
 {
-    public class HelloWorldManager : MonoBehaviour
+    private NetworkManager m_NetworkManager;
+    void Awake()
     {
-        private NetworkManager m_NetworkManager;
-
-        void Awake()
+        m_NetworkManager = GetComponent<NetworkManager>();
+    }
+    void OnGUI()
+    {
+        GUILayout.BeginArea(new Rect(10, 10, 300, 300));
+        if (!m_NetworkManager.IsClient && !m_NetworkManager.IsServer)
         {
-            m_NetworkManager = GetComponent<NetworkManager>();
+            StartButtons();
         }
-
-        void OnGUI()
+        else
         {
-            GUILayout.BeginArea(new Rect(10, 10, 300, 300));
-            if (!m_NetworkManager.IsClient && !m_NetworkManager.IsServer)
-            {
-                StartButtons();
-            }
-            else
-            {
-                StatusLabels();
-            }
-
-            GUILayout.EndArea();
+            StatusLabels();
         }
-
-        void StartButtons()
+        GUILayout.EndArea();
+    }
+    void StartButtons()
+    {
+        if (GUILayout.Button("Host"))
         {
-            if (GUILayout.Button("Host"))
-            {
-                m_NetworkManager.StartHost();
-            }
-            
-            if (GUILayout.Button("Client")) 
-            {
-                m_NetworkManager.StartClient();
-            }
-            
-            if (GUILayout.Button("Server")) 
-            {
-                m_NetworkManager.StartServer();
-            }
+            m_NetworkManager.StartHost();
         }
-
-        void StatusLabels()
+        
+        if (GUILayout.Button("Client")) 
         {
-            var mode = m_NetworkManager.IsHost ?
-                "Host" : m_NetworkManager.IsServer ? "Server" : "Client";
-
-            GUILayout.Label("Transport: " +
-                m_NetworkManager.NetworkConfig.NetworkTransport.GetType().Name);
-            GUILayout.Label("Mode: " + mode);
+            m_NetworkManager.StartClient();
+        }
+        
+        if (GUILayout.Button("Server")) 
+        {
+            m_NetworkManager.StartServer();
         }
     }
+    void StatusLabels()
+    {
+        var mode = m_NetworkManager.IsHost ?
+            "Host" : m_NetworkManager.IsServer ? "Server" : "Client";
+        GUILayout.Label("Transport: " +
+            m_NetworkManager.NetworkConfig.NetworkTransport.GetType().Name);
+        GUILayout.Label("Mode: " + mode);
+    }
+    
+    public NetworkVariable<int> score1 = new NetworkVariable<int>(0), score2 = new NetworkVariable<int>(0);
+    [ServerRpc]
+    public void PlayerDiedServerRpc(ServerRpcParams rpcParams = default)
+    {
+        int id = (int)rpcParams.Receive.SenderClientId;
+        Debug.Log("Player " + id + " died");
+        NetworkObject player = m_NetworkManager.ConnectedClientsList[id].PlayerObject;
+
+        if(id == 0)
+        {
+            score2.Value++;
+        }
+        else 
+        {
+            score1.Value++;
+        }
+
+        //respawn player
+        player.transform.position = new Vector3(0, 0, 0);
+        player.GetComponent<PlayerData>().health.Value = 100f;
+    }   
 }

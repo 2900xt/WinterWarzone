@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ public class UIManager : MonoBehaviour
     public Color dashSliderColor;
     public PlayerMotor playerMotor;
     public PlayerData playerData;
+    public TextMeshProUGUI score0Text, score1Text;
+    public GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +35,7 @@ public class UIManager : MonoBehaviour
                 dashFillImage.color = dashSliderColor;
             }
 
-            healthSlider.value = playerData.Health / 100f;
+            healthSlider.value = playerData.health.Value / 100f;
         }
         else 
         {
@@ -40,5 +43,13 @@ public class UIManager : MonoBehaviour
             NetworkManager.Singleton.LocalClient?.PlayerObject?.TryGetComponent(out playerMotor);
             NetworkManager.Singleton.LocalClient?.PlayerObject?.TryGetComponent(out playerData);
         }
+
+        if(gameManager == null)
+        {
+            gameManager = NetworkManager.Singleton.GetComponent<GameManager>();
+        }
+
+        score0Text.text = gameManager.score1.Value.ToString();
+        score1Text.text = gameManager.score2.Value.ToString();
     }
 }

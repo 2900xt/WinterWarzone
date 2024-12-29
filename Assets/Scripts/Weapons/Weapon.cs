@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Weapon : MonoBehaviour
+using Unity.Netcode;
+public class Weapon : NetworkBehaviour
 {
     public Camera fpsCam;
     public int ammo = 100;
@@ -22,6 +22,8 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!IsOwner) return;
+        
         timeSinceShot += Time.deltaTime;
         if(Input.GetButtonDown("Fire1")){
             TryToShoot();
