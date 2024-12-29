@@ -678,6 +678,8 @@ MonoBehaviour:
     clips: []
   - name: RELOAD
     clips: []
+  - name: MENU_MUSIC
+    clips: []
 --- !u!82 &429993363
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2625,16 +2627,41 @@ MonoBehaviour:
   - name: BACKGROUND_MUSIC
     clips: []
   - name: JUMP
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 13f485a9ad99a8a4a9fb2cee4768b2c4, type: 3}
   - name: LAND
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: ae9d0aaf34bf61a429e1ad96272e870d, type: 3}
+    - {fileID: 8300000, guid: 0751ccb164da21444bef82922ab934f7, type: 3}
   - name: FOOTSTEP
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 6df5abdc878657e48836ca520c04953f, type: 3}
+    - {fileID: 8300000, guid: f978931086c5b1d4fb941d4772d5b7a6, type: 3}
+    - {fileID: 8300000, guid: ab775812b52ebbb4a975e1316e4aa570, type: 3}
+    - {fileID: 8300000, guid: 4667328ddb75fb542a70b6e96f85e123, type: 3}
+    - {fileID: 8300000, guid: f82420dd879a0a54ba40c69ddf66894f, type: 3}
+    - {fileID: 8300000, guid: 5630dedb5cd28b048818ee10352fb2ac, type: 3}
+    - {fileID: 8300000, guid: 0978585d474c3e24596f6fe96dab622b, type: 3}
+    - {fileID: 8300000, guid: a59a5aabe6adc2341a3a33e54fd7d12e, type: 3}
+    - {fileID: 8300000, guid: 7542aceecfe77ba4dba44819162e7b3f, type: 3}
+    - {fileID: 8300000, guid: 14bed6468ab75914089a142663af2729, type: 3}
+    - {fileID: 8300000, guid: cdacaffdf19736b46ab6d6f1657ae9ff, type: 3}
+    - {fileID: 8300000, guid: 525419260f872bb44afadc7d334ca6d6, type: 3}
   - name: THROW_SNOWBALL
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: b25056043dcbf2d428ebdcc8fdff30d5, type: 3}
+    - {fileID: 8300000, guid: baf9b4556a685a0419ee532b55177aed, type: 3}
+    - {fileID: 8300000, guid: 8d571375c22fc4245b0582a8a05620e8, type: 3}
+    - {fileID: 8300000, guid: 5dec907fcc1bf9544a471d9da3139e69, type: 3}
+    - {fileID: 8300000, guid: 8c20dd7a509a1d64e8e2d7c6fcd7a27d, type: 3}
   - name: HIT_SNOWBALL
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 864f9a229ceab47429aeaa35d1ac31b8, type: 3}
+    - {fileID: 8300000, guid: 9a0db0cbab2485c4aae78701b89affd5, type: 3}
   - name: RELOAD
+    clips:
+    - {fileID: 8300000, guid: b976a35d92f63694caa501f455844d72, type: 3}
+  - name: MENU_MUSIC
     clips: []
 --- !u!82 &1596219685
 AudioSource:
@@ -2808,6 +2835,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a06fe05e9c422b4c9faa1bfdb8c9f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score1: 0
+  score2: 0
 --- !u!1001 &1596219749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3361,6 +3390,9 @@ MonoBehaviour:
   dashSliderColor: {r: 0, g: 0.8352941, b: 0, a: 0}
   playerMotor: {fileID: 0}
   playerData: {fileID: 0}
+  score0Text: {fileID: 0}
+  score1Text: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
