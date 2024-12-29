@@ -95,7 +95,7 @@ MonoBehaviour:
   fireRate: 10
   timeSinceShot: 0
   snowballPrefab: {fileID: 1149982569492287048, guid: f0ad2919466994b4aa5acd7ddf3444b6, type: 3}
-  launchStrength: 26
+  launchStrength: 50
 --- !u!33 &9139341581181629302
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -257,7 +257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  cameraParent: {fileID: 0}
   glider: {fileID: 3292914187094130923}
   grounded: 0
   jumpCooldown: 1
