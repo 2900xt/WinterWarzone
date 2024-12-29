@@ -25,7 +25,7 @@ public class PlayerData : NetworkBehaviour
     public void RespawnRpc(RpcParams rpcParams = default)
     {
         Debug.Log("Respawning player " + OwnerClientId);
-        transform.position = new Vector3(0, 0, 0);
+        GetComponent<PlayerMotor>().OnNetworkSpawn();
         health = 100f;
     }
 

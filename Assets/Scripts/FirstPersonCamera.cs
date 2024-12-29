@@ -27,7 +27,7 @@ public class FirstPersonCamera : NetworkBehaviour
         float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
         cameraVerticalRotation -= inputY;
-        cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -50f, 50f);
+        cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -50f, 70f);
 
         transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
 

@@ -5,7 +5,7 @@ using Unity.Netcode;
 public class Weapon : NetworkBehaviour
 {
     public Transform fpsCam;
-    public int ammo = 100;
+    public int ammo = 1000000;
     public float damage = 10f;
     public float range = 100f;
     public float fireRate = 10f;
