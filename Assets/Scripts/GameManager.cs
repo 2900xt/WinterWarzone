@@ -10,7 +10,19 @@ public class GameManager : MonoBehaviour
     {
         m_NetworkManager = GetComponent<NetworkManager>();
         Instance = this;
+        if(!PlayerPrefs.HasKey("Mode")) return;
+        string mode = PlayerPrefs.GetString("Mode");
+
+        if(mode == "Host")
+        {
+            m_NetworkManager.StartHost();
+        }
+        else if(mode == "Client")
+        {
+            m_NetworkManager.StartClient();
+        }
     }
+
     void OnGUI()
     {
         GUILayout.BeginArea(new Rect(10, 10, 300, 300));
@@ -18,7 +30,7 @@ public class GameManager : MonoBehaviour
         {
             StartButtons();
         }
-        else
+        else 
         {
             StatusLabels();
         }

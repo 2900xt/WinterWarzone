@@ -19,14 +19,15 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void LoadGame()
+    public void StartHost()
     {
+        PlayerPrefs.SetString("Mode", "Host");
         SceneManager.LoadScene(1);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartClient()
     {
-        
+        PlayerPrefs.SetString("Mode", "Client");
+        SceneManager.LoadScene(1);
     }
 }
