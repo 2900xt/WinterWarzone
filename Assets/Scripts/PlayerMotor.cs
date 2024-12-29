@@ -17,7 +17,7 @@ public class PlayerMotor : NetworkBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        float rad = 60f, theta = Random.Range(0f, 360f);
+        float rad = 40f, theta = Random.Range(0f, 360f);
         Vector3 pos = new Vector3(rad * Mathf.Cos(theta), 150f, rad * Mathf.Sin(theta));
         transform.position = pos;
 
