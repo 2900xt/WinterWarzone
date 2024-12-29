@@ -30,10 +30,6 @@ public class Weapon : NetworkBehaviour
             return;
         }
         timeSinceShot = 0f;
-        if(ammo <= 0){
-            Debug.Log("Out Of Ammo");
-            return;
-        }
         ammo -= 1;
         Shoot();
     }
