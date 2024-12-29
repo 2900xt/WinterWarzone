@@ -680,6 +680,8 @@ MonoBehaviour:
     clips: []
   - name: MENU_MUSIC
     clips: []
+  - name: DASH
+    clips: []
 --- !u!82 &429993363
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2625,7 +2627,8 @@ MonoBehaviour:
   audioSource: {fileID: 1596219685}
   soundLists:
   - name: BACKGROUND_MUSIC
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 701f610ce49d608489fea1328ecca9ba, type: 3}
   - name: JUMP
     clips:
     - {fileID: 8300000, guid: 13f485a9ad99a8a4a9fb2cee4768b2c4, type: 3}
@@ -2662,7 +2665,11 @@ MonoBehaviour:
     clips:
     - {fileID: 8300000, guid: b976a35d92f63694caa501f455844d72, type: 3}
   - name: MENU_MUSIC
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 1748ceee47d77ad4a93427a9cad9e3e6, type: 3}
+  - name: DASH
+    clips:
+    - {fileID: 8300000, guid: 1240e19a825bf3f42b3946d33604c335, type: 3}
 --- !u!82 &1596219685
 AudioSource:
   m_ObjectHideFlags: 0

@@ -78,5 +78,6 @@ public enum SoundType{
     THROW_SNOWBALL,
     HIT_SNOWBALL,
     RELOAD,
-    MENU_MUSIC
+    MENU_MUSIC,
+    DASH
 }
