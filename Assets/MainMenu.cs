@@ -39,7 +39,7 @@ public class MainMenu : MonoBehaviour
     {
         PlayerPrefs.SetString("Mode", "Client");
         string cleanedIP = System.Text.RegularExpressions.Regex.Replace(IPText.text, "[^0-9.]", ""); 
-        if(cleanedIP.Contains("192")) PlayerPrefs.SetString("IP", cleanedIP);
+        if(cleanedIP.Length != 0) PlayerPrefs.SetString("IP", cleanedIP);
         SceneManager.LoadScene(1);
     }
 }
