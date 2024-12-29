@@ -75,5 +75,6 @@ public enum SoundType{
     FOOTSTEP,
     THROW_SNOWBALL,
     HIT_SNOWBALL,
-    RELOAD
+    RELOAD,
+    MENU_MUSIC
 }
