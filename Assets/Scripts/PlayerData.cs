@@ -65,7 +65,7 @@ public class PlayerData : NetworkBehaviour
                     RespawnRpc();
                 }
                 
-                col.gameObject.GetComponent<NetworkObject>().Despawn();
+                Destroy(col.gameObject);
             }
         }
     }

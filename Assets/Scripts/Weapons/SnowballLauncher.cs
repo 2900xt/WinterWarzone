@@ -18,7 +18,19 @@ public class SnowballLauncher : Weapon
     {
         GameObject snowball = Instantiate(snowballPrefab, position, Quaternion.identity);
         snowball.GetComponent<NetworkObject>().SpawnWithOwnership(rpcParams.Receive.SenderClientId);
-        Vector3 launchForce = forward * launchStrength;
-        snowball.GetComponent<Rigidbody>().AddForce(launchForce, ForceMode.Impulse);
+
+        ApplyForceClientRpc(snowball.GetComponent<NetworkObject>().NetworkObjectId, forward * launchStrength);
+    }
+
+    
+    [Rpc(SendTo.Owner)]
+    private void ApplyForceClientRpc(ulong objectId, Vector3 force, RpcParams rpcParams = default)
+    {
+        var networkObject = NetworkManager.Singleton.SpawnManager.SpawnedObjects[objectId];
+        var rb = networkObject.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.AddForce(force, ForceMode.Impulse);
+        }
     }
 }
