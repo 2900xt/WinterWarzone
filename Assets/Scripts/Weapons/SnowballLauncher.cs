@@ -11,7 +11,8 @@ public class SnowballLauncher : Weapon
     public override void Shoot()
     {
         GameObject snowball = Instantiate(snowballPrefab, fpsCam.transform.position, fpsCam.transform.rotation);
-        snowball.GetComponent<Rigidbody>().AddForce(fpsCam.transform.forward * launchStrength, ForceMode.Impulse);
         snowball.GetComponent<NetworkObject>().Spawn();
+        snowball.GetComponent<Rigidbody>().AddForce(fpsCam.transform.forward * launchStrength, ForceMode.Impulse);
+        Debug.Log("Snowball launched by: " + OwnerClientId);
     }
 }

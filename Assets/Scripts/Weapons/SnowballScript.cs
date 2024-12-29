@@ -11,14 +11,15 @@ public class SnowballScript : NetworkBehaviour
     }
     public void OnTriggerEnter(Collider col)
     {
-        if(IsOwner)
+        if(IsOwner && col.gameObject.CompareTag("Player"))
         {
             ulong objOwner = col.gameObject.GetComponent<NetworkObject>().OwnerClientId;
-            if(col.gameObject.CompareTag("Player") && objOwner != OwnerClientId)
+            if(objOwner != OwnerClientId)
             {
+                Debug.Log("Snowball hit player" + objOwner);
                 PlayerData playerData = col.gameObject.GetComponent<PlayerData>();
                 playerData.TakeDamage(10);
-                GetComponent<NetworkObject>().Despawn();
+                Despawn();
             }
         }
     }
