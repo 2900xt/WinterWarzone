@@ -7221,6 +7221,7 @@ GameObject:
   - component: {fileID: 1596219687}
   - component: {fileID: 1596219688}
   - component: {fileID: 1596219689}
+  - component: {fileID: 1596219690}
   m_Layer: 0
   m_Name: Global Volume
   m_TagString: Untagged
@@ -7275,7 +7276,8 @@ MonoBehaviour:
   audioSource: {fileID: 1596219685}
   soundLists:
   - name: BACKGROUND_MUSIC
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 701f610ce49d608489fea1328ecca9ba, type: 3}
   - name: JUMP
     clips:
     - {fileID: 8300000, guid: 13f485a9ad99a8a4a9fb2cee4768b2c4, type: 3}
@@ -7312,6 +7314,9 @@ MonoBehaviour:
     clips: []
   - name: MENU_MUSIC
     clips: []
+  - name: DASH
+    clips:
+    - {fileID: 8300000, guid: 1240e19a825bf3f42b3946d33604c335, type: 3}
 --- !u!82 &1596219685
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7486,6 +7491,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score1: 0
   score2: 0
+--- !u!95 &1596219690
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596219681}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 75219836727d0fa4cab91375116f0bdb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1596219749
 PrefabInstance:
   m_ObjectHideFlags: 0

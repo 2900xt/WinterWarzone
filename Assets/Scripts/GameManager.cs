@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         {
             localIP = GetLocalIPAddress();
         }
-        
+
         GUILayout.Label("Local IP: " + localIP);
     }
 

@@ -72,7 +72,7 @@ public class PlayerMotor : NetworkBehaviour
         {
             rb.velocity = new Vector3(rb.velocity.x*dashForce, rb.velocity.y, rb.velocity.z*dashForce);
             curDashCooldownTime = dashCooldownTime;
-            SoundManager.PlaySoundRpc(SoundType.JUMP, 0.2f);
+            SoundManager.PlaySoundRpc(SoundType.DASH, 0.2f);
         }
 
         rb.AddForce(newForce + frictionForce);
