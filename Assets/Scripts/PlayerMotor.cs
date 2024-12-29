@@ -26,6 +26,7 @@ public class PlayerMotor : NetworkBehaviour
 
     void FixedUpdate()
     {
+        glider.gameObject.SetActive(gliding);
         if(!IsLocalPlayer) return;
         
         Vector3 newForce = Vector3.zero;
@@ -94,15 +95,21 @@ public class PlayerMotor : NetworkBehaviour
         jumpCooldown = true;
     }
 
+    [Rpc(SendTo.ClientsAndHost)]
+    public void StopGlidingRpc(RpcParams rpcParams = default)
+    {
+        gliding = false;
+    }
+
     void OnCollisionStay(Collision other)
     {
         if(other.gameObject.layer == 6) 
         {
             if(gliding)
             {
-                gliding = false;
-                glider.gameObject.SetActive(false);
+                StopGlidingRpc();
             }
+
             grounded = true;
         }
     }
