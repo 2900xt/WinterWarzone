@@ -15,7 +15,7 @@ very fun and engaging.
 1. Download the zip file in the releases from GitHub
 2. Extract the contents into a folder
 3. Open Windows Defender Settings - Make sure the firewall is OFF (Disabled) for both computers
-4. Run the game "WinterWarzone.exe" file on both computers
+4. Run the game "WinterWarzone.exe" file on both computers in the WinterWarzone 1.2 folder
 5. On one computer, click "Start Host", and note the IP Address listed on the top left
 6. On a separate computer, type the IP Address of the Host PC, and click "Join Game"
 
