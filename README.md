@@ -19,6 +19,11 @@ very fun and engaging.
 5. On one computer, click "Start Host", and note the IP Address listed on the top left
 6. On a separate computer, type the IP Address of the Host PC, and click "Join Game"
 
+## How to run Multiplayer (1v1) online with others (NOT LAN)
+1. Go and install [Hamachi](vpn.net) and login to both computers
+2. Create a hamachi network and join it from both computers
+3. Now follow same steps as a LAN hosting
+
 ## How to test run Multiplayer on your computer (no LAN)
 1. Download the zip file in the releases from GitHub
 2. Extract the contents into a folder
