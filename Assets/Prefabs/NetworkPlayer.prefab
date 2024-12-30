@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1529447792
+  GlobalObjectIdHash: 2700248209
   InScenePlacedSourceGlobalObjectIdHash: 2700248209
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -264,7 +264,7 @@ MonoBehaviour:
   friction: 75
   acceleration: 1000
   frictionEpsilon: 10.7
-  maxSpeed: 8
+  maxSpeed: 15
   jumpForce: 10
   dashForce: 10
   dashCooldownTime: 5

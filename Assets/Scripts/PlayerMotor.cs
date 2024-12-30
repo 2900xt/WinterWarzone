@@ -98,7 +98,7 @@ public class PlayerMotor : NetworkBehaviour
 
         if(gliding)
         {
-            rb.velocity = new Vector3(rb.velocity.x, Mathf.Max(-10f, rb.velocity.y), rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x, Mathf.Max(-20f, rb.velocity.y), rb.velocity.z);
         }
     }
 
